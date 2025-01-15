@@ -19,6 +19,7 @@ from .const import (
     CONFIG_ENCRYPT_PASSWORD,
     CONFIG_UNIT,
     CONFIG_PREFIX,
+    CONFIG_INTERVAL,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -33,6 +34,7 @@ DATA_SCHEMA = vol.Schema(
         vol.Optional(CONFIG_CERT): str,
         vol.Optional(CONFIG_ENCRYPT_PASSWORD): str,
         vol.Optional(CONFIG_PREFIX, default="actualbudget"): str,
+        vol.Optional(CONFIG_INTERVAL, default=60): int,
     }
 )
 

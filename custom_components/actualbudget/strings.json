@@ -11,7 +11,8 @@
           "encrypt_password": "encrypt password",
           "file": "file id",
           "cert": "certificate",
-          "unit": "unit"
+          "unit": "unit",
+          "interval": "sync interval"
         },
         "data_description": {
           "endpoint": "The endpoint of the actualbudget server",
@@ -19,7 +20,8 @@
           "encrypt_password": "The password to encrypt the actualbudget file",
           "file": "The file id of the actualbudget server",
           "cert": "The certificate of the actualbudget server, write 'SKIP' to skip certificate validation",
-          "unit": "The currency of the actualbudget server"
+          "unit": "The currency of the actualbudget server",
+          "interval": "The interval for sync with actualbudget server"
         }
       }
     },

@@ -29,6 +29,7 @@ from .const import (
     CONFIG_UNIT,
     CONFIG_CERT,
     CONFIG_ENCRYPT_PASSWORD,
+    CONFIG_INTERVAL,
 )
 from .actualbudget import ActualBudget, BudgetAmount
 
@@ -46,6 +47,8 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ):
     """Setup sensor platform."""
+    global SCAN_INTERVAL
+    
     config = config_entry.data
     endpoint = config[CONFIG_ENDPOINT]
     password = config[CONFIG_PASSWORD]
@@ -53,6 +56,10 @@ async def async_setup_entry(
     cert = config.get(CONFIG_CERT)
     unit = config.get(CONFIG_UNIT, "€")
     prefix = config.get(CONFIG_PREFIX)
+    interval = config.get(CONFIG_INTERVAL)
+    
+    if ((interval != None) and (interval != 60)):
+        SCAN_INTERVAL = datetime.timedelta(minutes=interval)
 
     if cert == "SKIP":
         cert = False
@@ -122,6 +129,7 @@ class actualbudgetAccountSensor(SensorEntity):
         balance: float,
         unique_source_id: str,
         prefix: str,
+        interval: int,
         balance_last_updated: datetime.datetime,
     ):
         super().__init__()
@@ -135,6 +143,7 @@ class actualbudgetAccountSensor(SensorEntity):
         self._cert = cert
         self._encrypt_password = encrypt_password
         self._prefix = prefix
+        self._interval = interval
 
         self._icon = DEFAULT_ICON
         self._unit_of_measurement = unit
@@ -226,6 +235,7 @@ class actualbudgetBudgetSensor(SensorEntity):
         amounts: List[BudgetAmount],
         unique_source_id: str,
         prefix: str,
+        interval: int,
         balance_last_updated: datetime.datetime,
     ):
         super().__init__()
@@ -239,6 +249,7 @@ class actualbudgetBudgetSensor(SensorEntity):
         self._cert = cert
         self._encrypt_password = encrypt_password
         self._prefix = prefix
+        self._interval = interval
 
         self._icon = DEFAULT_ICON
         self._unit_of_measurement = unit
