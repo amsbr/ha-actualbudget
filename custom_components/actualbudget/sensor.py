@@ -85,6 +85,7 @@ async def async_setup_entry(
             account.balance,
             unique_source_id,
             prefix,
+            interval,
             lastUpdate,
         )
         for account in accounts
@@ -106,6 +107,7 @@ async def async_setup_entry(
             budget.amounts,
             unique_source_id,
             prefix,
+            interval,
             lastUpdate,
         )
         for budget in budgets
